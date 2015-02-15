@@ -1,1 +1,1 @@
-# Computer Vision Learning with C++ in Visual Studio 2013
+# Learn Computer Vision with C++ in Visual Studio 2013
