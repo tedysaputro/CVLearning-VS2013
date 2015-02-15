@@ -30,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		
 		Unlike cvLoadImage, which actually allocates memory for the image, 
 		cvQueryFrame uses memory already allocated in the CvCapture structure. Thus it
-		will not be necessary (or wise) to call cvReleaseImage() for this “frame” pointer. Instead,
+		will not be necessary (or wise) to call cvReleaseImage() for this "frame" pointer. Instead,
 		the frame image memory will be freed when the CvCapture structure is released.
 		*/
 		frame = cvQueryFrame(capture);
