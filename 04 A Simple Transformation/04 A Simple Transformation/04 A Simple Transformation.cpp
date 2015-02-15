@@ -16,7 +16,15 @@ void example(IplImage* image){
 	cvShowImage("Example in ", image);
 	
 	// Create an image to hold the smoothed output
-	//
+	/*
+		we want to allocate our own image structure to which we can write our smoothed image. 
+		The first argument is a CvSize structure, which we can conveniently create by calling cvGetSize(image);
+		
+		this gives us the size of the existing structure image. The second argument tells us what kind
+		of data type is used for each channel on each pixel, and the last argument indicates the
+		number of channels. So this image is three channels (with 8 bits per channel) and is the
+		same size as image.
+	*/
 	IplImage* out = cvCreateImage(
 		cvGetSize(image),
 		IPL_DEPTH_8U,
