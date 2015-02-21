@@ -21,7 +21,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		OpenCV uses this structure to handle all kinds of images: single-channel, multichannel, integer-valued, floating-point-valued, et cetera. 
 		We use the pointer thatcvLoadImage() returns to manipulate the image and the image data.
 	*/
-	IplImage* img = cvLoadImage("D:\\57.JPG");
+	IplImage* img = cvLoadImage("D:\\yuki-kimoto-012.jpg");
 
 	/*
 		cvNamedWindow(), opens a window on the screen that can contain and display an image. 
