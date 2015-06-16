@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, const char** argv)
 {
-	Mat img = imread("D:\\57.JPG", CV_LOAD_IMAGE_UNCHANGED); //read the image data in the file "MyPic.JPG" and store it in 'img'
+	Mat img = imread("D:\\images.jpg", CV_LOAD_IMAGE_UNCHANGED); //read the image data in the file "MyPic.JPG" and store it in 'img'
 	
 	if (img.empty()) //check whether the image is loaded or not
 	{
@@ -23,7 +23,6 @@ int main(int argc, const char** argv)
 	imshow("MyWindow", img); //display the image which is stored in the 'img' in the "MyWindow" window
 
 	waitKey(0); //wait infinite time for a keypress
-	cvW
 	destroyWindow("MyWindow"); //destroy the window with the name, "MyWindow"
 
 	return 0;

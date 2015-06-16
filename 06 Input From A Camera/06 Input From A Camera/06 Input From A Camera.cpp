@@ -3,18 +3,15 @@
 
 #include "stdafx.h"
 #include "opencv2\highgui\highgui.hpp"
-#include "opencv\cv.h"
+#include "opencv2\opencv.hpp"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	cvNamedWindow("Example2_9", CV_WINDOW_AUTOSIZE);
 	CvCapture* capture;
-	//if (argc == 1) {
+	
 	capture = cvCreateCameraCapture(0);
-//	}
-//	else {
-//		capture = cvCreateFileCapture("D:\\test.avi");
-//	}
+
 	assert(capture != NULL);
 
 	IplImage* frame;
