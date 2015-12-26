@@ -9,7 +9,8 @@
 using namespace cv;
 using namespace std;
 
-void showHistogram(Mat& img){
+void showHistogram(Mat& img)
+{
 	int bins = 256;//number of bins
 	int nc = img.channels();//number of channels
 	vector<Mat> hist(nc); //array for storing the histograms
@@ -30,7 +31,7 @@ void showHistogram(Mat& img){
 	}
 
 	vector<Mat> canvas(nc);//images for displaying the histogram
-	int hmax[3] = {0,0,0}//peak valie for each histogram
+	int hmax[3] = { 0, 0, 0 };//peak valie for each histogram
 
 }
 

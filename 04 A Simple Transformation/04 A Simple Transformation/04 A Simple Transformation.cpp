@@ -13,7 +13,7 @@ void example(IplImage* image){
 	cvNamedWindow("Example out", CV_WINDOW_AUTOSIZE);
 
 	// Create a window to show our input image
-	cvShowImage("Example in ", image);
+	cvShowImage("Example in", image);
 	
 	// Create an image to hold the smoothed output
 	/*
@@ -37,7 +37,7 @@ void example(IplImage* image){
 
 	// Show the smoothed image in the output window
 	//
-	cvShowImage("Example-out", out);
+	cvShowImage("Example out", out);
 
 	// Be tidy
 	//
@@ -53,7 +53,7 @@ void example(IplImage* image){
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	IplImage* img = cvLoadImage("D:\\yuki.jpg");
+	IplImage* img = cvLoadImage("D:\\yuki-kimoto.jpg");
 	cvNamedWindow("Example1", CV_WINDOW_AUTOSIZE);
 	cvShowImage("Example1", img);
 	example(img);
