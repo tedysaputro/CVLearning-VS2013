@@ -18,12 +18,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	namedWindow("Control", CV_WINDOW_AUTOSIZE);
 	int iLowH = 0;
-	int iHighH = 22;
+	int iHighH = 64;
 	
-	int iLowS = 98;
-	int iHighS = 255;
+	int iLowS = 126;
+	int iHighS = 238;
 
-	int iLowV = 84;
+	int iLowV = 7;
 	int iHighV = 255;
 
 	//create trackbars in "Control" Window
