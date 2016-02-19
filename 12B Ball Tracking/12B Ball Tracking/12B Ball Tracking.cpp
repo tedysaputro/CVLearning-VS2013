@@ -1,4 +1,4 @@
-// 12A Object Tracking.cpp : Defines the entry point for the console application.
+// 12A Ball Tracking.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -11,15 +11,17 @@ using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	VideoCapture cap(0);
+	VideoCapture cap;
+	cap.open("http://10.10.1.1:8196/?dummy=param.mjpg");
 	if (!cap.isOpened()){
+
 		cout << "cannot open the web cam" << endl;
 		return -1;
 	}
 	namedWindow("Control", CV_WINDOW_AUTOSIZE);
 	int iLowH = 0;
 	int iHighH = 64;
-	
+
 	int iLowS = 126;
 	int iHighS = 238;
 
@@ -28,10 +30,10 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//create trackbars in "Control" Window
 	createTrackbar("LowH", "Control", &iLowH, 179);
-	createTrackbar("HighH", "Control",&iHighH, 179);
-	
+	createTrackbar("HighH", "Control", &iHighH, 179);
+
 	createTrackbar("LowS", "Control", &iLowS, 255);
-	createTrackbar("HighS", "Control",&iHighS, 255);
+	createTrackbar("HighS", "Control", &iHighS, 255);
 
 	createTrackbar("LowV", "Control", &iLowV, 255);
 	createTrackbar("HighV", "Control", &iHighV, 255);
@@ -51,12 +53,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		Mat imgOriginal;
 
 		bool bSuccess = cap.read(imgOriginal);// read a new frame from video
-		int x = imgOriginal.cols/2;
-		int y = imgOriginal.rows/2;
+		int x = imgOriginal.cols / 2;
+		int y = imgOriginal.rows / 2;
 		int w = 100;
-		int h = 100;
-
-		rectangle(imgOriginal, Rect(x - w / 2, y - h / 2, w, h), Scalar(0, 0, 255));
+		int h = 500;
+		int left_side = x - w / 2;
+		int right_side = left_side+w;
+		rectangle(imgOriginal, Rect(left_side, y - h / 2, w, h), Scalar(0, 255, 0));
 
 		if (!bSuccess)//if not success, break loop
 		{
@@ -66,9 +69,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		Mat imgHSV;
 		cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV);//Convert the captured frame from BGR to HSV
- 
+
 		Mat imgThresholded;
-		inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),imgThresholded);//threshold the image
+		inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded);//threshold the image
 		//morphological opening (removes small objects from the foreground)
 		erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
 		dilate(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
@@ -84,13 +87,25 @@ int _tmain(int argc, _TCHAR* argv[])
 			//calculate the position of the ball
 			int posX = dM10 / dArea;
 			int posY = dM01 / dArea;
-			if (iLastX >= 0 && iLastY >= 0 && posX > 0 && posY >= 0)
-			{
-				line(imgLines, Point(posX, posY), Point(iLastX, iLastY), Scalar(0, 0, 255), 2);
+//			if (iLastX >= 0 && iLastY >= 0 && posX > 0 && posY >= 0)
+//			{
+//				line(imgLines, Point(posX, posY), Point(iLastX, iLastY), Scalar(0, 0, 255), 2);
 				//cout << "X="<<posX<<" Y="<<posY << endl;
 
+				
+//			}
+			if (posX > left_side && posX<right_side){//di dalam kotak
+				cout << left_side << ">" << posX << ">" << right_side<<endl;
+			
+			}
+			else if (posX < left_side){
+				cout << left_side << "<" << posX << " sebelah kiri target" << endl;
+			}
+			else if (posX > right_side){
+				cout << right_side << ">" << posX << " sebelah kanan target" << endl;
 
 			}
+		
 			iLastX = posX;
 			iLastY = posY;
 
@@ -99,7 +114,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		imshow("Thresholded Image", imgThresholded);//show the thresholded image
 		imgOriginal = imgOriginal + imgLines;
 		imshow("Original", imgOriginal);//show the original image
-		if(waitKey(30) == 27)
+		if (waitKey(30) == 27)
 		{
 			cout << "esc key is pressed by user" << endl;
 			break;
